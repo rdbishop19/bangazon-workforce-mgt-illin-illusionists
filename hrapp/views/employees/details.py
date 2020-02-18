@@ -42,7 +42,7 @@ def get_employee(employee_id):
         """, (employee_id,))
 
         employee_rows = db_cursor.fetchall()
-        print (employee_rows)
+        # print (employee_rows)
 
         employee_groups = {}
 
@@ -52,8 +52,8 @@ def get_employee(employee_id):
                 employee_groups[employee.id] = employee
                 # append book to employee in dict
             employee_groups[employee.id].trainings.append(employee.training)
-        print (employee_groups[employee.id])
-        print (employee_groups[employee.id].trainings)
+        # print (employee_groups[employee.id])
+        # print (employee_groups[employee.id].trainings)
 
         return employee_groups
 
