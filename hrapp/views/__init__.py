@@ -11,4 +11,4 @@ from .computers.computer_list import computer_list
 from .computers.details import computer_details
 from .computers.form import computer_form
 from .departments.form import department_form
-from .employees.form import employee_form
+from .employees.form import employee_form, employee_edit_form

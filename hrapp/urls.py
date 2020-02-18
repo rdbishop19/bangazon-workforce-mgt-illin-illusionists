@@ -9,7 +9,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('logout/', logout_user, name='logout'),
     path('employees/', employee_list, name='employee_list'),
-    
+    path('employees/<int:employee_id>/form', employee_edit_form, name='employee_edit_form'),
     path('computers/', computer_list, name='computer_list'),
     path('trainingprograms/', training_program_list, name='training_list'),
     path('trainingprograms/<int:program_id>', training_details, name='training'),

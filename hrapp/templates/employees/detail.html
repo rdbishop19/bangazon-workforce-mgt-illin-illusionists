@@ -5,7 +5,19 @@
     <h1>Employee: {{ employee }} </h1>
     <p>Department: {{ employee.dept_name }}</p>
     <p>Assigned Computer: {{ employee.computer }}</p>
-
+    {% if user.is_authenticated %}
+    <section id="employee-actions" style="display:flex;">
+        <form action="{% url 'hrapp:employee_edit_form' employee.id %}" method="GET">
+            {% csrf_token %}
+            <button>Edit</button>
+        </form>
+        <form action="{% url 'hrapp:employee' employee.id %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="actual_method" value="DELETE">
+            <button>Delete</button>
+        </form>
+    </section>
+    {% endif %}
 
 <p>Training Programs: <p>
     {% for training in employee.trainings %}
