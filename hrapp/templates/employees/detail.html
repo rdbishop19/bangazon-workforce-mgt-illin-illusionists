@@ -5,7 +5,12 @@
     <h1>Employee: {{ employee }} </h1>
     <p>Department: {{ employee.dept_name }}</p>
     <p>Assigned Computer: {{ employee.computer }}</p>
-
+    {% if user.is_authenticated %}
+        <form action="{% url 'hrapp:employee_edit_form' employee.id %}" method="GET">
+            {% csrf_token %}
+            <button>Edit</button>
+        </form>
+    {% endif %}
 
 <p>Training Programs: <p>
     {% for training in employee.trainings %}

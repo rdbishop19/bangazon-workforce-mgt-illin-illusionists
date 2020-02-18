@@ -3,11 +3,12 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from ..connection import Connection
-from hrapp.models import Department
+from hrapp.models import Department, Employee
+
 
 def employee_form(request):
     if request.method == 'GET':
-          with sqlite3.connect(Connection.db_path) as conn:
+        with sqlite3.connect(Connection.db_path) as conn:
             conn.row_factory = sqlite3.Row
             db_cursor = conn.cursor()
 
@@ -28,4 +29,14 @@ def employee_form(request):
     context = {'all_departments': all_departments}
 
     return render(request, template, context)
-   
+
+
+def employee_edit_form(request, employee_id):
+    employee = Employee.objects.get(pk=employee_id)
+    departments = Department.objects.all()
+    template = 'employees/form.html'
+    context = {
+        'employee': employee,
+        'all_departments': departments,
+    }
+    return render(request, template, context)
