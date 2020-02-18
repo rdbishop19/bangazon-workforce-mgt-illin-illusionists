@@ -1,7 +1,7 @@
 import sqlite3
 
-from django.shortcuts import render
-from hrapp.models import Employee, model_factory
+from django.shortcuts import render, redirect, reverse
+from hrapp.models import Employee, model_factory, Department
 from hrapp.models import TrainingProgram
 from .. connection import Connection
 from django.contrib.auth.decorators import login_required
@@ -67,6 +67,26 @@ def employee_details(request, employee_id):
             'employee': employee[employee_id]
         }
         return render(request, template, context)
+
+    elif request.method == 'POST':
+        form_data = request.POST
+
+        if (
+            "actual_method" in form_data
+            and form_data["actual_method"] == "PUT"
+        ):
+            employee = Employee.objects.get(pk=employee_id)
+            employee.first_name = form_data['first']
+            employee.last_name = form_data['last']
+            employee.start_date = form_data['start_date']
+            
+            department = Department()
+            department.id = form_data['department']
+            employee.department = department
+            employee.is_supervisor = form_data['is_supervisor']
+            employee.save()
+
+            return redirect(reverse('hrapp:employee_list'))
 
 def create_employee(cursor, row):
     _row = sqlite3.Row(cursor, row)

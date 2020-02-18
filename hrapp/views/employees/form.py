@@ -25,10 +25,10 @@ def employee_form(request):
                 department.id = row['id']
                 department.dept_name = row['dept_name']
                 all_departments.append(department)
-    template = 'employees/form.html'
-    context = {'all_departments': all_departments}
+        template = 'employees/form.html'
+        context = {'all_departments': all_departments}
 
-    return render(request, template, context)
+        return render(request, template, context)
 
 
 def employee_edit_form(request, employee_id):
