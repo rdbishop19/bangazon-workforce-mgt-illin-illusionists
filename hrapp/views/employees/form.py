@@ -37,6 +37,7 @@ def employee_edit_form(request, employee_id):
     template = 'employees/form.html'
     context = {
         'employee': employee,
+        'start_date': str(employee.start_date),
         'all_departments': departments,
     }
     return render(request, template, context)
