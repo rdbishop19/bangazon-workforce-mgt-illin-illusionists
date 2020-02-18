@@ -86,7 +86,14 @@ def employee_details(request, employee_id):
             employee.is_supervisor = form_data['is_supervisor']
             employee.save()
 
-            return redirect(reverse('hrapp:employee_list'))
+        elif (
+            "actual_method" in form_data
+            and form_data["actual_method"] == "DELETE"
+        ):
+            employee = Employee.objects.get(pk=employee_id)
+            employee.delete()
+            
+        return redirect(reverse('hrapp:employee_list'))
 
 def create_employee(cursor, row):
     _row = sqlite3.Row(cursor, row)
